@@ -36,8 +36,22 @@ class Target {
 
 class Battery {
   constructor() {
-    
+    this.battery = document.createElement("div");
+    this.battery.classList.add("battery");
+    this.battery.style.top = "400px";
+    this.battery.style.left = "50%";
+    document.getElementById("gameSpace").appendChild(this.battery);
+
+    window.addEventListener("keydown", event => {
+      if (event.key === "f" && parseInt(this.battery.style.left) >= 0) {
+        this.battery.style.left = String(parseInt(this.battery.style.left) - 10) + "px";
+      } else if (event.key === "j" && parseInt(this.battery.style.left) <= window.innerWidth){
+        this.battery.style.left = String(parseInt(this.battery.style.left) + 10) + "px";
+      }
+    })
   }
+
+  
 }
 
 const targets = [];
@@ -56,3 +70,5 @@ window.addEventListener("keydown", event => {
 setTimeout(() => {
   clearInterval(intervalId);
 }, 10000);
+
+new Battery();
