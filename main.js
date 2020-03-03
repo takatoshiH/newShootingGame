@@ -12,7 +12,6 @@ class Bullet {
         document.getElementById("gameSpace").removeChild(this.bullet);
       }
       this.bullet.style.top = String(parseInt(this.bullet.style.top) - 10) + "px";
-      console.log("ok");
     }, 10);
   }
 }
@@ -21,7 +20,7 @@ class Target {
   constructor() {
     this.target = document.createElement("div");
     this.target.classList.add("target");
-    this.speed = Math.floor(Math.random() * 50) + 10;
+    this.speed = Math.floor(Math.random() * 2) + 10;
     this.target.style.top = String(Math.floor(Math.random() * 250)) + "px";
     this.target.style.left = "0px";
     document.getElementById("gameSpace").appendChild(this.target);
@@ -31,16 +30,29 @@ class Target {
         clearInterval(this.intervalId);
       }
       this.target.style.left = String(parseInt(this.target.style.left) + this.speed) + "px";
-    }, 100);
+    }, 10);
   }
 }
 
+class Battery {
+  constructor() {
+    
+  }
+}
+
+const targets = [];
+const bullets = [];
+
 const intervalId = setInterval(() => {
-  new Target();
+  targets.push(new Target());
 }, 1000);
+
+window.addEventListener("keydown", event => {
+  if (event.key === " " && bullets.length <= 20) {
+    bullets.push(new Bullet());
+  }
+})
 
 setTimeout(() => {
   clearInterval(intervalId);
 }, 10000);
-
-new Bullet();
