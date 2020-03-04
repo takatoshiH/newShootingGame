@@ -27,14 +27,14 @@ header {
 .target {
   height: 15px;
   width: 40px;
-  background-color: #FF003F;
+  background-color: #656565;
   position: absolute;
 }
 
 .bullet {
   height: 10px;
   width: 5px;
-  background-color: red;
+  background-color: white;
   position: absolute;
   border-radius: 5px 5px 0 0;
 }
@@ -44,6 +44,12 @@ header {
   width: 20px;
   background-color: red;
   position: absolute;
-  /* top: 400px;
-  left: calc(50% - 5px); */
+}
+
+.countdown {
+  position: absolute;
+  font-size: 200px;
+  top: 100px;
+  left: 45%;
+  color: red;
 }

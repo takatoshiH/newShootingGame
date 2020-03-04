@@ -2,7 +2,7 @@ class Bullet {
   constructor() {
     this.bullet = document.createElement("div");
     this.bullet.classList.add("bullet");
-    this.bullet.style.top = "400px";
+    this.bullet.style.top = "350px";
     this.bullet.style.left = "50%";
     document.getElementById("gameSpace").appendChild(this.bullet);
 
@@ -10,7 +10,7 @@ class Bullet {
       if (parseInt(this.bullet.style.top) <= 10) {
         clearInterval(this.intervalId);
         document.getElementById("gameSpace").removeChild(this.bullet);
-      }
+      } 
       this.bullet.style.top = String(parseInt(this.bullet.style.top) - 10) + "px";
     }, 10);
   }
@@ -28,6 +28,7 @@ class Target {
     this.intervalId = setInterval(() => {
       if (parseInt(this.target.style.left) >= window.innerWidth) {
         clearInterval(this.intervalId);
+        this.target.style.display = "none";
       }
       this.target.style.left = String(parseInt(this.target.style.left) + this.speed) + "px";
     }, 10);
@@ -50,25 +51,60 @@ class Battery {
       }
     })
   }
-
-  
 }
 
-const targets = [];
-const bullets = [];
-
-const intervalId = setInterval(() => {
-  targets.push(new Target());
-}, 1000);
-
-window.addEventListener("keydown", event => {
-  if (event.key === " " && bullets.length <= 20) {
-    bullets.push(new Bullet());
-  }
-})
-
-setTimeout(() => {
-  clearInterval(intervalId);
-}, 10000);
-
 new Battery();
+
+//当たり判定部分
+function hitJudge(target, bullet) {
+}
+
+const numbers = [3, 2, 1];
+const countdown = document.createElement("div");
+countdown.classList.add("countdown");
+document.getElementById("gameSpace").appendChild(countdown);
+
+let index = 0;
+count(numbers, countdown, index);
+
+function count(numbers, countdown, index) {
+  let timeoutId = setTimeout(() => {
+    countdown.textContent = numbers[index];
+    index++;
+    if (index === 3) {
+      clearTimeout(timeoutId);
+      gameStart();
+    }
+    count(numbers, countdown, index);
+  }, 1000);
+}
+
+function gameStart() {
+  const targets = [];
+  const bullets = [];
+
+  const intervalId = setInterval(() => {
+    targets.push(new Target());
+  }, 1000);
+  
+  window.addEventListener("keydown", event => {
+    if (event.key === " " && bullets.length <= 20) {
+      bullets.push(new Bullet());
+    }
+  })
+  
+  setTimeout(() => {
+    clearInterval(intervalId);
+  }, 10000);
+
+  setInterval(() => {
+    targets.forEach((target, targetIndex) => {
+      bullets.forEach((bullet, bulletIndex) => {
+        if (hitJudge(target, bullet)) {
+          targets.splice(targetIndex, 1);
+          bullets.splice(bulletIndex, 1);
+        }
+      })
+    })
+  });
+}
