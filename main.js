@@ -40,8 +40,7 @@ class Battery {
     this.battery = document.createElement("div");
     this.battery.classList.add("battery");
     this.battery.style.top = "400px";
-    //ここの修正
-    this.battery.style.left = document.getElementById("gameSpace").style.width;
+    this.battery.style.left = "50%";
     document.getElementById("gameSpace").appendChild(this.battery);
 
     window.addEventListener("keydown", event => {
@@ -94,6 +93,7 @@ function gameStart() {
     clearInterval(intervalId);
   }, 10000);
 
+  //画面アウトしたら配列から省きたい
   setInterval(() => {
     targets.forEach((target, targetIndex) => {
       bullets.forEach((bullet, bulletIndex) => {
