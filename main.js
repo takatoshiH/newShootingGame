@@ -40,7 +40,8 @@ class Battery {
     this.battery = document.createElement("div");
     this.battery.classList.add("battery");
     this.battery.style.top = "400px";
-    this.battery.style.left = "50%";
+    //ここの修正
+    this.battery.style.left = document.getElementById("gameSpace").style.width;
     document.getElementById("gameSpace").appendChild(this.battery);
 
     window.addEventListener("keydown", event => {
@@ -96,10 +97,11 @@ function gameStart() {
   setInterval(() => {
     targets.forEach((target, targetIndex) => {
       bullets.forEach((bullet, bulletIndex) => {
-        console.log(bullet);
+        //ここが変
         if (parseInt(bullet.style.left) >= parseInt(target.style.left) && parseInt(bullet.style.left) <= parseInt(target.style.left) + 40) {
           targets.splice(targetIndex, 1);
           bullets.splice(bulletIndex, 1);
+          //ここも変
           target.style.display = "none";
           bullet.style.display = "none";
         }
