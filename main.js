@@ -55,10 +55,6 @@ class Battery {
 
 new Battery();
 
-//当たり判定部分
-function hitJudge(target, bullet) {
-}
-
 const numbers = [3, 2, 1];
 const countdown = document.createElement("div");
 countdown.classList.add("countdown");
@@ -100,9 +96,12 @@ function gameStart() {
   setInterval(() => {
     targets.forEach((target, targetIndex) => {
       bullets.forEach((bullet, bulletIndex) => {
-        if (hitJudge(target, bullet)) {
+        console.log(bullet);
+        if (parseInt(bullet.style.left) >= parseInt(target.style.left) && parseInt(bullet.style.left) <= parseInt(target.style.left) + 40) {
           targets.splice(targetIndex, 1);
           bullets.splice(bulletIndex, 1);
+          target.style.display = "none";
+          bullet.style.display = "none";
         }
       })
     })
